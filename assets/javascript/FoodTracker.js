@@ -1,5 +1,15 @@
-// For nutritional info
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDjOZYeHYU1gc7YLAbhuDKaKhQ8--1f1f8",
+    authDomain: "food-tracker-90c0e.firebaseapp.com",
+    databaseURL: "https://food-tracker-90c0e.firebaseio.com",
+    projectId: "food-tracker-90c0e",
+    storageBucket: "",
+    messagingSenderId: "277573844017"
+  };
+  firebase.initializeApp(config);
 
+// For nutritional info
 $.ajax({
     url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=Pasta",
     method: "GET",
