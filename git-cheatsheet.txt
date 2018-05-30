@@ -1,0 +1,15 @@
+From command line
+gitk -- Shows graphic editor
+git branch (list all the branches)
+
+switch branch
+git checkout [branch_name]
+Note: make sure you add commit before switching branches or you will lose your stuff FOR GOOD
+
+
+git merge [other_branch_name]
+
+git pull origin master
+--TEST AND FIX--
+
+git push origin master
