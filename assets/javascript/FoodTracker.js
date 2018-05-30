@@ -17,16 +17,6 @@
   var carbs='';
   var protein='';
 
-
-// For nutritional info
-
-  
-    // console.log('food info');
-    // console.log(response);
-    // console.log(response.calories.value);
-    // console.log(response.carbs.value);
-    // console.log(response.fat.value);
-    // console.log(response.protein.value);
     $("#add-meal").on("click", function(event) {
       event.preventDefault();
       var food = $("#meal").val().trim();
@@ -52,7 +42,9 @@
 
   });
 
-  })
+
+
+  
 
  // Capture values from text boxes
 
@@ -133,6 +125,8 @@ $.ajax({
         'tags' : wineLCBO.tags,
         'style' : wineLCBO.style
     } 
-}   
+} 
+
+    });
 
 
