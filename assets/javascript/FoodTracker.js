@@ -38,6 +38,11 @@
        var fat = response.fat.value;
        var protein = response.protein.value;
        console.log(calories, carbs, fat, protein);
+       $("#calories-input").text(calories);
+       $("#fat-input").text(fat);
+       $("#carbohydrates-input").text(carbs);
+       $("#protein-input").text(protein);
+
        $(".form-control").val("");
 
   });

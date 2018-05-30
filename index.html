@@ -5,27 +5,80 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Song+Myung" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
   </head>
   <body>
-
-    <div class="container">
+    <div class="container center-align">
       <div class="row">
-        <div class="col-md-4">
-          <form role="form">
-            <div class="form-group row">
-            <label for="meal">Meal:</label>
-            <input class="form-control" id="meal" type="text">
-            </div>
+        <h1>Food Tracker</h1>
+      </div>
+      <div class="row">
+        <h2>Your Food &amp; Wine Pairing App</h2>
+      </div>
 
-          <button class="btn btn-primary" id="add-meal" type="submit">Submit</button>
+      <div class="row hide-on-meal-submit center-align">
+          <form class="col s12">
+              <div class="input-field col s5 offset-s3">
+                <input id="meal" type="text" class="validate">
+                <label for="meal">What do you feel like for dinner?</label>
+              </div>
+
+                <div class="col s5" id="less-margin">
+                  <button class="btn" id="add-meal" type="submit" name="action">Submit
+                  </button>
+              </div>
         </form>
+
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <table>
+            <thead>
+              <tr>
+                <th>Nutritional Information</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Calories</td>
+                <td id="calories-input"></td>
+              </tr>
+              <tr>
+                <td>Fat</td>
+                <td id="fat-input"></td>
+              </tr>
+              <tr>
+                <td>Carbohydrates</td>
+                <td id="carbohydrates-input"></td>
+              </tr>
+              <tr>
+                <td>Protein</td>
+                <td id="protein-input"></td>
+              </tr>
+            </tbody>
+
+          </table>
         </div>
       </div>
-    <!-- Optional JavaScript -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.js"
     integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
