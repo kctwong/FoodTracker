@@ -1,4 +1,5 @@
   // Initialize Firebase
+
   var config = {
     apiKey: "AIzaSyDjOZYeHYU1gc7YLAbhuDKaKhQ8--1f1f8",
     authDomain: "food-tracker-90c0e.firebaseapp.com",
@@ -10,26 +11,51 @@
   firebase.initializeApp(config);
   var database = firebase.database();
 
-  var food = 'cheeseburger';
+  var food = "";
+  var calories = "";
+  var fat = '';
+  var carbs='';
+  var protein='';
+
 
 // For nutritional info
-$.ajax({
-    url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
-    method: "GET",
-    headers:{
-        "X-Mashape-Key":"mWSYqC5gHvmshnuUYlyxmn2HId5zp1uP4wHjsnKKFlHkkIhAvq",
-        "X-Mashape-Host":"spoonacular-recipe-food-nutrition-v1.p.mashape.com"
-    }
-  }).then(function(response) {
-    console.log('food info');
-    console.log(response);
-    console.log(response.calories.value);
-    console.log(response.carbs.value);
-    console.log(response.fat.value);
-    console.log(response.protein.value);
+
+  
+    // console.log('food info');
+    // console.log(response);
+    // console.log(response.calories.value);
+    // console.log(response.carbs.value);
+    // console.log(response.fat.value);
+    // console.log(response.protein.value);
+    $("#add-meal").on("click", function(event) {
+      event.preventDefault();
+      var food = $("#meal").val().trim();
+
+      $.ajax({
+        url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
+        method: "GET",
+        headers:{
+            "X-Mashape-Key":"mWSYqC5gHvmshnuUYlyxmn2HId5zp1uP4wHjsnKKFlHkkIhAvq",
+            "X-Mashape-Host":"spoonacular-recipe-food-nutrition-v1.p.mashape.com"
+        }
+      }).then(function(response) {
+
+      
+      console.log(food);
+      console.log(response);
+      var calories = response.calories.value;
+       var carbs = response.carbs.value;
+       var fat = response.fat.value;
+       var protein = response.protein.value;
+       console.log(calories, carbs, fat, protein);
+       $(".form-control").val("");
+
   });
 
-// Wine Pairing
+  })
+
+ // Capture values from text boxes
+
 $.ajax({
     url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/wine/pairing?food=" + food + "&maxPrice=100",
     method: "GET",
@@ -95,6 +121,7 @@ $.ajax({
         foodImage.attr('src', response.images[0].display_sizes[0].uri);
         $('body').append(foodImage); 
     });
+
 
     function firebaseVar() {var newWine = {
         "type" : wineLCBO.varietal,
