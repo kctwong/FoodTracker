@@ -47,7 +47,7 @@
 
 
        // Pushing meal and macro values to the database
-       var chosenMeal = {
+       var nutrition = {
         "recipe": food,
         "calories": calories,
         "carbohydrates": carbs,
@@ -55,7 +55,7 @@
         "protein": protein
       }
 
-        database.ref("./foodmacros").push(chosenMeal);
+        database.ref("/"+food).push(nutrition);
 
       // Creating a Firebase event for adding the meal and macros to the database and the info on the html when a user adds an entry
         database.ref().on("child_added", function(childSnapshot, prevChildKey) {
