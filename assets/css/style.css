@@ -22,6 +22,7 @@ h1 {
     margin: .67em 0
 }
 
+
 figcaption,
 figure,
 main {
@@ -262,9 +263,7 @@ body {
     font-family: 'Song Myung',
     serif;
 }
-/* table {
-    display:none;
-} */
+
 tbody {
     font-family: 'Roboto',
     sans-serif;
@@ -277,8 +276,19 @@ h1 {
 }
 
 h2 {
-    font-size:2em;
+    font-size:1.5em;
+    width: 50%;
+    color:grey;
+    text-align: center;
+    border-bottom: 1px solid grey;
+    line-height: 0.1em;
+    margin: 0 auto;
 }
+h2 span {
+    background:rgba(255, 255, 255, 0.9);
+    height: 1px;
+}
+
 
 .btn {
     font-family: 'Song Myung',
@@ -298,16 +308,73 @@ img {
 
 .input-field label {
     font-size:1.5rem;
+    color:black;
+}
+
+.input-field input[type=text]:focus+label,
+.materialize-textarea:focus:not([readonly])+label {
+    color: black !important;
+}
+
+
+.input-field input[type=text]:focus,
+.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid black !important;
+    box-shadow: 0 1px 0 0 black !important;
 }
 
 form {
     display:flex;
     align-items:center;
+    margin-top:15vh;
+
 }
 
 #less-margin {
     margin-left:5px;
 }
+
+body {
+    height:100vh;
+    background:linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+    url("../julien-pianetti-147831-unsplash.jpg"), center;
+    background-repeat:no-repeat;
+    background-position-x: center;
+    background-position-y: -20px;
+
+}
+
+.flex-center {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+}
+
+.hover {
+    background-color:rgba(0, 0, 0, 0.5);
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    /* display:none; */
+    position:absolute;
+    margin:0;
+}
+
+.card-image {
+    display:relative;
+}
+
+
+.card-image:hover .hover{
+       display:block;
+}
+
+table {
+    /* display: none; */
+}
+
+
 
 
 
