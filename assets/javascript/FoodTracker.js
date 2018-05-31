@@ -45,7 +45,33 @@
 
        $(".form-control").val("");
 
-  });
+
+       // Pushing meal and macro values to the database
+       var chosenMeal = {
+        "recipe": food,
+        "calories": calories,
+        "carbohydrates": carbs,
+        "fat": fat,
+        "protein": protein
+      }
+
+        database.ref("./foodmacros").push(chosenMeal);
+
+      // Creating a Firebase event for adding the meal and macros to the database and the info on the html when a user adds an entry
+        database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+
+        console.log(childSnapshot.val());
+
+      // Store everything into a variable.
+        var trainName = childSnapshot.val().calories;
+        var destination = childSnapshot.val().carbs;
+        var firstDeparture = childSnapshot.val().fat;
+        var frequency = childSnapshot.val().protein;
+
+      });
+
+      
+
 
 
 
