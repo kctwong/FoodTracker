@@ -54,14 +54,18 @@
         "fat": fat,
         "protein": protein
       }
-
+              
         database.ref("/"+food).push(nutrition);
 
         // Adding it to local storage
         
-        //localStorage.setItem();
+        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
+              
+        localStorage.setItem("nutrition", JSON.stringify(nutrition));
+        console.log( JSON.parse(localStorage.getItem("nutrition")));
 
-      
+      //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
+        var getNutrition = JSON.parse(localStorage.getItem("nutrition"));
 
       });
 
