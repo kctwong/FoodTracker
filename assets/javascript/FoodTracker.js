@@ -107,7 +107,7 @@
                   displayWine();
                   //this will display each of the three wine pairings under a new folder in firebase with the title of the food var
                   database.ref('/'+food).push(newWine);
-                  //adds to local storage the food and wine variety as key and name of wine as value
+                  //adds to local storage the food and wine variety as key and name of wine as valuegi
                   localStorage.setItem(food + " " + wineLCBO.varietal, wineLCBO.name);
               });
           }
