@@ -43,7 +43,7 @@
        $("#carbohydrates-input").text(carbs);
        $("#protein-input").text(protein);
 
-       $(".form-control").val("");
+       $("#meal").val("");
 
 
        // Pushing meal and macro values to the database
@@ -57,16 +57,11 @@
 
         database.ref("/"+food).push(nutrition);
 
-      // Creating a Firebase event for adding the meal and macros to the database and the info on the html when a user adds an entry
-        database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+        // Adding it to local storage
+        
+        //localStorage.setItem();
 
-        console.log(childSnapshot.val());
-
-      // Store everything into a variable.
-        var trainName = childSnapshot.val().calories;
-        var destination = childSnapshot.val().carbs;
-        var firstDeparture = childSnapshot.val().fat;
-        var frequency = childSnapshot.val().protein;
+      
 
       });
 
@@ -160,4 +155,4 @@ $.ajax({
 
     });
 
-
+  
