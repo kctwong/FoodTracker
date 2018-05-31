@@ -1,5 +1,4 @@
   // Initialize Firebase
-
   var config = {
     apiKey: "AIzaSyDjOZYeHYU1gc7YLAbhuDKaKhQ8--1f1f8",
     authDomain: "food-tracker-90c0e.firebaseapp.com",
@@ -29,8 +28,6 @@
             "X-Mashape-Host":"spoonacular-recipe-food-nutrition-v1.p.mashape.com"
         }
       }).then(function(response) {
-
-      
       console.log(food);
       console.log(response);
       var calories = response.calories.value;
@@ -43,16 +40,26 @@
        $("#carbohydrates-input").text(carbs);
        $("#protein-input").text(protein);
 
-       $(".form-control").val("");
+       $("#meal").val("");
+       // Pushing meal and macro values to the database
+       var nutrition = {
+        "recipe": food,
+        "calories": calories,
+        "carbohydrates": carbs,
+        "fat": fat,
+        "protein": protein
+      }      
+        database.ref("/"+food).push(nutrition);
+        // Adding it to local storage
+        
+        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity   
+        localStorage.setItem("nutrition", JSON.stringify(nutrition));
+        console.log( JSON.parse(localStorage.getItem("nutrition")));
 
-  });
-
-
-
-  
-
+      //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
+        var getNutrition = JSON.parse(localStorage.getItem("nutrition"));
+      });
  // Capture values from text boxes
-
 $.ajax({
     url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/wine/pairing?food=" + food + "&maxPrice=100",
     method: "GET",
@@ -72,7 +79,6 @@ $.ajax({
         console.log(wineChoice[i]);
         wineCall();
     }
-
     function wineCall(){
         $.ajax({
           url: 'https://lcboapi.com/products?q=' + wineChoice[i],
@@ -81,28 +87,65 @@ $.ajax({
               'Authorization': 'Token MDo4MzRjY2I1MC02MGZiLTExZTgtODMzMS1iZmE1NDQ0YmJkZWE6TXJRWHdkYmF3TkZ1NTFlaERJYVZvdFZkakVzSlk3VWFSRzRk' }
         }).then(function(response) {
           console.log(response);
-          var wineLCBO = response.result[0];
-          console.log("name: " + wineLCBO.name);
-          console.log("varietal: " + wineLCBO.varietal);
-          console.log("image URL: " + wineLCBO.image_url);
-          console.log("price: $" + (wineLCBO.price_in_cents)/100);
-          console.log("sugar in g/L: " + wineLCBO.sugar_in_grams_per_liter);
-          console.log("package: " + wineLCBO.package);
-          console.log("mL: " + wineLCBO.package_unit_volume_in_milliliters);
-          console.log('tags: ' + wineLCBO.tags);
-          console.log('style: ' + wineLCBO.style);
-          function displayWine() {
-              var wineImage = $("<img>");
-              wineImage.attr('src',wineLCBO.image_url);
-              $('body').append(wineImage);
+          //shows the top 3 wines for i=[0,2]
+          console.log(response.pairedWines)
+          //shows wine pairing text for whatever food
+          console.log(response.pairingText)
+          wineChoice = response.pairedWines;
+          for (var i = 0; i < wineChoice.length; i++) {
+              console.log(wineChoice[i]);
+              wineCall();
           }
-          displayWine();
-          firebaseVar();
-          database.ref(wineChoice).push(newWine);
+//this function will query the LCBO wine API for each of the three top wine pairings
+          function wineCall() {
+              $.ajax({
+                  url: 'https://lcboapi.com/products?q=' + wineChoice[i],
+                  method: 'GET',
+                  headers: {
+                      'Authorization': 'Token MDo4MzRjY2I1MC02MGZiLTExZTgtODMzMS1iZmE1NDQ0YmJkZWE6TXJRWHdkYmF3TkZ1NTFlaERJYVZvdFZkakVzSlk3VWFSRzRk'
+                  }
+              }).then(function (response) {
+                  console.log(response);
+                  var wineLCBO = response.result[0];
+                  console.log("name: " + wineLCBO.name);
+                  console.log("varietal: " + wineLCBO.varietal);
+                  console.log("image URL: " + wineLCBO.image_url);
+                  console.log("price: $" + (wineLCBO.price_in_cents) / 100);
+                  console.log("sugar in g/L: " + wineLCBO.sugar_in_grams_per_liter);
+                  console.log("package: " + wineLCBO.package);
+                  console.log("mL: " + wineLCBO.package_unit_volume_in_milliliters);
+                  console.log('tags: ' + wineLCBO.tags);
+                  console.log('style: ' + wineLCBO.style);
+
+
+                  var newWine = { //left side - firebase, right side - var from your code
+                      "type": wineLCBO.varietal,
+                      "name": wineLCBO.name,
+                      'food': food,
+                      "price": (wineLCBO.price_in_cents) / 100,
+                      'sugar': wineLCBO.sugar_in_grams_per_liter,
+                      'package': wineLCBO.package,
+                      'tags': wineLCBO.tags,
+                      'style': wineLCBO.style,
+                      'imageURL' : wineLCBO.image_url
+                  }
+
+                  function displayWine() {
+                      var wineImage = $("<img class='winePic'>");
+                      wineImage.attr('src', wineLCBO.image_url);
+                      $("#wineArea").prepend(wineImage);
+                      console.log(wineImage);
+                      console.log('image test');
+                  }
+                  displayWine();
+                  //this will display each of the three wine pairings under a new folder in firebase with the title of the food var
+                  database.ref('/'+food).push(newWine);
+                  //adds to local storage the food and wine variety as key and name of wine as valuegi
+                  localStorage.setItem(food + " " + wineLCBO.varietal, wineLCBO.name);
+              });
+          }
         });
       }
-    
-
   });
   
 //images API
@@ -118,20 +161,6 @@ $.ajax({
         foodImage.attr('src', response.images[0].display_sizes[0].uri);
         $('body').append(foodImage); 
     });
+      });
 
-
-    function firebaseVar() {var newWine = {
-        "type" : wineLCBO.varietal,
-        "name" : wineLCBO.name,
-        'food' : food,
-        "price" : (wineLCBO.price_in_cents)/100,
-        'sugar' : wineLCBO.sugar_in_grams_per_liter,
-        'package' : wineLCBO.package,
-        'tags' : wineLCBO.tags,
-        'style' : wineLCBO.style
-    } 
-} 
-
-    });
-
-
+  
