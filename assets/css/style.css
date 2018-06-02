@@ -456,6 +456,49 @@ img {
     width:100%;
 }
 
+/* carousel */
+.carousel .carousel-slider{
+    position: relative;
+    height: auto;
+    width: 100%;
+    
+}
+.carousel-item img {
+    position: relative;
+    height: auto;
+    width: 100%;
+}
+
+.carousel-caption>h3 {
+    position: relative;
+} 
+
+.multi-item-carousel>.carousel-inner>.item{
+    transition: .6s ease-in-out all;
+}
+
+
+.multi-item-carousel>.active.left{
+    left: -33%;
+}
+
+.multi-item-carousel>.active.right{
+    right: 33%;
+}
+
+.multi-item-carousel.next{
+    left: 33%;
+}
+
+.multi-item-carousel.next{
+    left: -33%;
+}
+
+
+
+
+}
+
 
 
 
