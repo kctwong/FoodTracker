@@ -159,8 +159,8 @@ $("#add-meal").on("click", function (event) {
                         var cardCol = $("<div class='col l3 m9 offset-m1 s10 offset-s1'>")
                         
                         var cardImage = $("<div class='card-image'>")
-                        var onHoverInfo = $("<div class='card-reveal' id='hover-wine-one'>")
-                        var textInfo = $("<p id='pairing-text'>");
+                        var onHoverInfo = $("<div class='card-reveal' id='hover-wine'>")
+                        var textInfo = $("<p>");
                         var innerText = "Price: $" + price + "<br>" + "Sugar (g/L): " + wineLCBO.sugar_in_grams_per_liter + "<br>" + wineLCBO.style 
                         textInfo.html(innerText);
                         onHoverInfo.append(textInfo);
