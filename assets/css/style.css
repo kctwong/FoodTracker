@@ -380,12 +380,13 @@ form {
 }
 
 body {
-    height:100vh;
+    height:100%;
     background:linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
     url("../julien-pianetti-147831-unsplash.jpg"), center;
-    background-repeat:no-repeat;
-    background-position-x: center;
-    background-position-y: -20px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
 }
 
@@ -432,11 +433,13 @@ body {
 }
 
 #pairing-text {
-    line-height:
+    line-height: 1.5em;
+    font-size: 1.3em;
+    text-align:center;
 }
 
 
-#wineImg {
+#wineImage {
     max-width:100%;
     overflow: hidden;
 }

@@ -23,42 +23,6 @@ $("#add-meal").on("click", function (event) {
     event.preventDefault();
     //this will empty the wine area
     $("#wineArea").empty();
-<<<<<<< HEAD
-    $(".table-area").show();
-    $(".img-hide").show();
-
-    var food = $("#meal").val().trim();
-    if (localStorage.getItem(food + "nutrition")) {
-        console.log("this was searched for");
-        var getNutrition = JSON.parse(localStorage.getItem(food + "nutrition"));
-        console.log(getNutrition);
-        $("#calories-input").text(getNutrition.calories);
-        $("#fat-input").text(getNutrition.fat);
-        $("#carbohydrates-input").text(getNutrition.carbohydrates);
-        $("#protein-input").text(getNutrition.protein);
-        findWine();
-    } else {
-        $.ajax({
-            url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
-            method: "GET",
-            headers: {
-                "X-Mashape-Key": "mWSYqC5gHvmshnuUYlyxmn2HId5zp1uP4wHjsnKKFlHkkIhAvq",
-                "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
-            }
-        }).then(function (response) {
-            console.log(food);
-            console.log(response);
-            var calories = response.calories.value;
-            var carbs = response.carbs.value;
-            var fat = response.fat.value;
-            var protein = response.protein.value;
-            console.log(calories, carbs, fat, protein);
-            $("#calories-input").text(calories);
-            $("#fat-input").text(fat);
-            $("#carbohydrates-input").text(carbs);
-            $("#protein-input").text(protein);
-
-=======
     var Food = $("#meal").val().trim();
     var food = Food.toLowerCase();
     $("#meal").val("");
@@ -102,7 +66,6 @@ $("#add-meal").on("click", function (event) {
             $("#carbohydrates-input").text(carbs);
             $("#protein-input").text(protein);
 
->>>>>>> 6e270f2c9c6a6220203ac3f8a1484ad3047ae60f
             $("#meal").val("");
             // Pushing meal and macro values to the database
             var nutrition = {
