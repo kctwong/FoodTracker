@@ -22,12 +22,20 @@ $("#add-meal").on("click", function (event) {
     event.preventDefault();
     //this will empty the wine area
     $("#wineArea").empty();
-    var food = $("#meal").val().trim();
-
     $(".table-area").show();
     $(".img-hide").show();
 
-    $.ajax({
+    var food = $("#meal").val().trim();
+    if (localStorage.getItem(food+"nutrition")) {
+        console.log("this was searched for");
+        var getNutrition = JSON.parse(localStorage.getItem(food+"nutrition"));
+        console.log(getNutrition);
+        $("#calories-input").text(getNutrition.calories);
+        $("#fat-input").text(getNutrition.fat);
+        $("#carbohydrates-input").text(getNutrition.carbohydrates);
+        $("#protein-input").text(getNutrition.protein);
+        findWine();
+      }else {$.ajax({
         url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
         method: "GET",
         headers: {
@@ -60,13 +68,14 @@ $("#add-meal").on("click", function (event) {
         // Adding it to local storage
 
         // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
-        localStorage.setItem("nutrition-" + food, JSON.stringify(nutrition));
+        localStorage.setItem(food + "nutrition", JSON.stringify(nutrition));
         // console.log(JSON.parse(localStorage.getItem("nutrition")));
 
         //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
         var getNutrition = JSON.parse(localStorage.getItem("nutrition-" + food));
         findWine();
     });
+}
 
     function findWine() {
         // Capture values from text boxes
@@ -146,13 +155,14 @@ $("#add-meal").on("click", function (event) {
                     //this will display each of the three wine pairings under a new folder in firebase with the title of the food var
                     database.ref('/' + food).push(newWine);
                     //adds to local storage the food and wine variety as key and name of wine as valuegi
-                    localStorage.setItem(food + wineLCBO.varietal, wineLCBO.name);
+                    localStorage.setItem(food + wineLCBO.varietal, JSON.stringify(newWine));
                     
                 });
             }
         });
     }
 });
+
 
 
 //   //images API
