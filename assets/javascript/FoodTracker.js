@@ -15,51 +15,68 @@ var calories = "";
 var fat = '';
 var carbs = '';
 var protein = '';
+$(".table-area").hide();
+$(".img-hide").hide();
 
 $("#add-meal").on("click", function (event) {
     event.preventDefault();
+    //this will empty the wine area
+    $("#wineArea").empty();
+    $(".table-area").show();
+    $(".img-hide").show();
+
     var food = $("#meal").val().trim();
-
-    $.ajax({
-        url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
-        method: "GET",
-        headers: {
-            "X-Mashape-Key": "mWSYqC5gHvmshnuUYlyxmn2HId5zp1uP4wHjsnKKFlHkkIhAvq",
-            "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
-        }
-    }).then(function (response) {
-        console.log(food);
-        console.log(response);
-        var calories = response.calories.value;
-        var carbs = response.carbs.value;
-        var fat = response.fat.value;
-        var protein = response.protein.value;
-        console.log(calories, carbs, fat, protein);
-        $("#calories-input").text(calories);
-        $("#fat-input").text(fat);
-        $("#carbohydrates-input").text(carbs);
-        $("#protein-input").text(protein);
-
-        $("#meal").val("");
-        // Pushing meal and macro values to the database
-        var nutrition = {
-            "recipe": food,
-            "calories": calories,
-            "carbohydrates": carbs,
-            "fat": fat,
-            "protein": protein
-        }
-        database.ref("/" + food).push(nutrition);
-        // Adding it to local storage
-
-        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
-        localStorage.setItem("nutrition", JSON.stringify(nutrition));
-        console.log(JSON.parse(localStorage.getItem("nutrition")));
-
-        //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
-        var getNutrition = JSON.parse(localStorage.getItem("nutrition"));
+    if (localStorage.getItem(food + "nutrition")) {
+        console.log("this was searched for");
+        var getNutrition = JSON.parse(localStorage.getItem(food + "nutrition"));
+        console.log(getNutrition);
+        $("#calories-input").text(getNutrition.calories);
+        $("#fat-input").text(getNutrition.fat);
+        $("#carbohydrates-input").text(getNutrition.carbohydrates);
+        $("#protein-input").text(getNutrition.protein);
         findWine();
-    });
+    } else {
+        $.ajax({
+            url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
+            method: "GET",
+            headers: {
+                "X-Mashape-Key": "mWSYqC5gHvmshnuUYlyxmn2HId5zp1uP4wHjsnKKFlHkkIhAvq",
+                "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
+            }
+        }).then(function (response) {
+            console.log(food);
+            console.log(response);
+            var calories = response.calories.value;
+            var carbs = response.carbs.value;
+            var fat = response.fat.value;
+            var protein = response.protein.value;
+            console.log(calories, carbs, fat, protein);
+            $("#calories-input").text(calories);
+            $("#fat-input").text(fat);
+            $("#carbohydrates-input").text(carbs);
+            $("#protein-input").text(protein);
+
+            $("#meal").val("");
+            // Pushing meal and macro values to the database
+            var nutrition = {
+                "recipe": food,
+                "calories": calories,
+                "carbohydrates": carbs,
+                "fat": fat,
+                "protein": protein
+            }
+            database.ref("/" + food).push(nutrition);
+            // Adding it to local storage
+
+            // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
+            localStorage.setItem(food + "nutrition", JSON.stringify(nutrition));
+            // console.log(JSON.parse(localStorage.getItem("nutrition")));
+
+            //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
+            var getNutrition = JSON.parse(localStorage.getItem("nutrition-" + food));
+            findWine();
+        });
+    }
 
     function findWine() {
         // Capture values from text boxes
@@ -102,6 +119,7 @@ $("#add-meal").on("click", function (event) {
                     console.log("mL: " + wineLCBO.package_unit_volume_in_milliliters);
                     console.log('tags: ' + wineLCBO.tags);
                     console.log('style: ' + wineLCBO.style);
+                    displayWine();
 
                     var newWine = { //left side - firebase, right side - var from your code
                         "type": wineLCBO.varietal,
@@ -114,15 +132,15 @@ $("#add-meal").on("click", function (event) {
                         'style': wineLCBO.style,
                         'imageURL': wineLCBO.image_url
                     }
-                    displayWine();
+
 
                     function displayWine() {
-                        var cardCol = $("<div class='col s3 offset-s1'>")
+                        var cardCol = $("<div class='col l3 m9 offset-m1 s10 offset-s1'>")
                         var card = $("<div class='card'>")
                         var cardImage = $("<div class='card-image'>")
                         var onHoverInfo = $("<div class='hover'>")
                         var textInfo = $("<p>");
-                        textInfo.text("hello a test");
+                        textInfo.text(wineLCBO.name);
                         onHoverInfo.append(textInfo);
                         var wineImg = $("<img id='wineImage'>");
                         wineImg.attr('src', wineLCBO.image_url);
@@ -132,13 +150,14 @@ $("#add-meal").on("click", function (event) {
                         card.append(cardImage);
                         cardCol.append(card);
 
-                        $("#wineArea").html(cardCol);
+                        $("#wineArea").append(cardCol);
                     }
-                    //   displayWine();
+
                     //this will display each of the three wine pairings under a new folder in firebase with the title of the food var
                     database.ref('/' + food).push(newWine);
                     //adds to local storage the food and wine variety as key and name of wine as valuegi
-                    localStorage.setItem(food + " " + wineLCBO.varietal, wineLCBO.name);
+                    localStorage.setItem(food + wineLCBO.varietal, JSON.stringify(newWine));
+
                 });
             }
         });
@@ -146,17 +165,18 @@ $("#add-meal").on("click", function (event) {
 });
 
 
-  //   //images API
-  //   $.ajax({
-  //       url: 'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=most_popular&phrase=' + food,
-  //       method: 'GET',
-  //       headers: {
-  //           'Api-Key': 'wyr4aumhujeqza2t6prt6u2h'
-  //       }
-  //   }).then(function (response) {
-  //       console.log(response);
-  //       //adding food image to page
-  //       var foodImage = $("<img>");
-  //       foodImage.attr('src', response.images[0].display_sizes[0].uri);
-  //       $('body').append(foodImage);
-  //   });
+
+//   //images API
+//   $.ajax({
+//       url: 'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=most_popular&phrase=' + food,
+//       method: 'GET',
+//       headers: {
+//           'Api-Key': 'wyr4aumhujeqza2t6prt6u2h'
+//       }
+//   }).then(function (response) {
+//       console.log(response);
+//       //adding food image to page
+//       var foodImage = $("<img>");
+//       foodImage.attr('src', response.images[0].display_sizes[0].uri);
+//       $('body').append(foodImage);
+//   });g
