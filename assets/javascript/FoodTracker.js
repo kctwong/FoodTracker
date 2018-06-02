@@ -18,6 +18,8 @@ var protein = '';
 
 $("#add-meal").on("click", function (event) {
     event.preventDefault();
+    //this will empty the wine area
+    $("#wineArea").empty();
     var food = $("#meal").val().trim();
 
     $.ajax({
@@ -53,11 +55,11 @@ $("#add-meal").on("click", function (event) {
         // Adding it to local storage
 
         // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity   
-        localStorage.setItem("nutrition", JSON.stringify(nutrition));
-        console.log(JSON.parse(localStorage.getItem("nutrition")));
+        localStorage.setItem("nutrition-"+food, JSON.stringify(nutrition));
+        // console.log(JSON.parse(localStorage.getItem("nutrition")));
 
         //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
-        var getNutrition = JSON.parse(localStorage.getItem("nutrition"));
+        var getNutrition = JSON.parse(localStorage.getItem("nutrition-"+food));
         findWine();
     });
 
@@ -102,6 +104,7 @@ $("#add-meal").on("click", function (event) {
                     console.log("mL: " + wineLCBO.package_unit_volume_in_milliliters);
                     console.log('tags: ' + wineLCBO.tags);
                     console.log('style: ' + wineLCBO.style);
+                    displayWine();
 
                     var newWine = { //left side - firebase, right side - var from your code
                         "type": wineLCBO.varietal,
@@ -114,15 +117,15 @@ $("#add-meal").on("click", function (event) {
                         'style': wineLCBO.style,
                         'imageURL': wineLCBO.image_url
                     }
-                    displayWine();
+                    
 
                     function displayWine() {
-                        var cardCol = $("<div class='col s3 offset-s1'>")
+                        var cardCol = $("<div class='col l3 m9 offset-m1 s10 offset-s1'>")
                         var card = $("<div class='card'>")
                         var cardImage = $("<div class='card-image'>")
                         var onHoverInfo = $("<div class='hover'>")
                         var textInfo = $("<p>");
-                        textInfo.text("hello a test");
+                        textInfo.text(wineLCBO.name);
                         onHoverInfo.append(textInfo);
                         var wineImg = $("<img id='wineImage'>");
                         wineImg.attr('src', wineLCBO.image_url);
@@ -132,13 +135,14 @@ $("#add-meal").on("click", function (event) {
                         card.append(cardImage);
                         cardCol.append(card);
 
-                      $("#wineArea").html(cardCol);
+                      $("#wineArea").append(cardCol);
                   }
-                    //   displayWine();
+                   
                     //this will display each of the three wine pairings under a new folder in firebase with the title of the food var
                     database.ref('/' + food).push(newWine);
                     //adds to local storage the food and wine variety as key and name of wine as valuegi
                     localStorage.setItem(food + " " + wineLCBO.varietal, wineLCBO.name);
+                    
                 });
             }
         });
@@ -159,4 +163,4 @@ $("#add-meal").on("click", function (event) {
 //       var foodImage = $("<img>");
 //       foodImage.attr('src', response.images[0].display_sizes[0].uri);
 //       $('body').append(foodImage);
-//   });
+//   });g
