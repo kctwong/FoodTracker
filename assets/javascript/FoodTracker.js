@@ -48,45 +48,44 @@ $("#add-meal").on("click", function (event) {
                 "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
             }
         }).then(function (response) {
-            if (response.status === "error"){
+            if (response.status === "error") {
                 console.log("lol");
                 alert('not a food yo')
+            } else {
+                $(".table-area").show();
+                $(".img-hide").show();
+                console.log(food);
+                console.log(response);
+                var calories = response.calories.value;
+                var carbs = response.carbs.value;
+                var fat = response.fat.value;
+                var protein = response.protein.value;
+                console.log(calories, carbs, fat, protein);
+                $("#calories-input").text(calories);
+                $("#fat-input").text(fat);
+                $("#carbohydrates-input").text(carbs);
+                $("#protein-input").text(protein);
+
+                $("#meal").val("");
+                // Pushing meal and macro values to the database
+                var nutrition = {
+                    "recipe": food,
+                    "calories": calories,
+                    "carbohydrates": carbs,
+                    "fat": fat,
+                    "protein": protein
+                }
+                database.ref("/" + food).push(nutrition);
+                // Adding it to local storage
+
+                // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
+                localStorage.setItem(food + "nutrition", JSON.stringify(nutrition));
+                // console.log(JSON.parse(localStorage.getItem("nutrition")));
+
+                //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
+                var getNutrition = JSON.parse(localStorage.getItem("nutrition-" + food));
+                findWine();
             }
-            else {
-            $(".table-area").show();
-            $(".img-hide").show();
-            console.log(food);
-            console.log(response);
-            var calories = response.calories.value;
-            var carbs = response.carbs.value;
-            var fat = response.fat.value;
-            var protein = response.protein.value;
-            console.log(calories, carbs, fat, protein);
-            $("#calories-input").text(calories);
-            $("#fat-input").text(fat);
-            $("#carbohydrates-input").text(carbs);
-            $("#protein-input").text(protein);
-
-            $("#meal").val("");
-            // Pushing meal and macro values to the database
-            var nutrition = {
-                "recipe": food,
-                "calories": calories,
-                "carbohydrates": carbs,
-                "fat": fat,
-                "protein": protein
-            }
-            database.ref("/" + food).push(nutrition);
-            // Adding it to local storage
-
-            // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
-            localStorage.setItem(food + "nutrition", JSON.stringify(nutrition));
-            // console.log(JSON.parse(localStorage.getItem("nutrition")));
-
-            //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
-            var getNutrition = JSON.parse(localStorage.getItem("nutrition-" + food));
-            findWine();
-        }
         });
     }
 
@@ -100,24 +99,24 @@ $("#add-meal").on("click", function (event) {
                 "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
             }
         }).then(function (response) {
-            if (response.status === "failure" || response.pairedWines.length === 0){
+            if (response.status === "failure" || response.pairedWines.length === 0) {
                 console.log("lol");
                 alert('not a wine yo')
-            }else{
-            console.log('wine pairings')
-            console.log(response);
-            //shows the top 3 wines for i=[0,2]
-            console.log(response.pairedWines)
-            //shows wine pairing text for whatever food
-            console.log(response.pairingText)
-            $("#pairing-text").html(response.pairingText);
-            $('#pairing-text').show();
-            $("#wineIntro").show();
-            wineChoice = response.pairedWines;
-            for (var i = 0; i < wineChoice.length; i++) {
-                console.log(wineChoice[i]);
-                wineCall();
-            }
+            } else {
+                console.log('wine pairings')
+                console.log(response);
+                //shows the top 3 wines for i=[0,2]
+                console.log(response.pairedWines)
+                //shows wine pairing text for whatever food
+                console.log(response.pairingText)
+                $("#pairing-text").html(response.pairingText);
+                $('#pairing-text').show();
+                $("#wineIntro").show();
+                wineChoice = response.pairedWines;
+                for (var i = 0; i < wineChoice.length; i++) {
+                    console.log(wineChoice[i]);
+                    wineCall();
+                }
             }
             //this function will query the LCBO wine API for each of the three top wine pairings
             function wineCall() {
@@ -159,11 +158,11 @@ $("#add-meal").on("click", function (event) {
 
                     function displayWine() {
                         var cardCol = $("<div class='col l3 m9 offset-m1 s10 offset-s1'>")
-                        
+
                         var cardImage = $("<div class='card-image'>")
                         var onHoverInfo = $("<div class='card-reveal' id='hover-wine'>")
                         var textInfo = $("<p>");
-                        var innerText = "Price: $" + price + "<br>" + "Sugar (g/L): " + wineLCBO.sugar_in_grams_per_liter + "<br>" + wineLCBO.style 
+                        var innerText = "Price: $" + price + "<br>" + "Sugar (g/L): " + wineLCBO.sugar_in_grams_per_liter + "<br>" + wineLCBO.style
                         textInfo.html(innerText);
                         onHoverInfo.append(textInfo);
                         var wineImg = $("<img id='wineImage'>");
@@ -171,7 +170,7 @@ $("#add-meal").on("click", function (event) {
                         var wineTitle = $("<span class='card-title'>");
                         wineTitle.text(wineLCBO.name);
                         cardImage.append(onHoverInfo, wineImg, wineTitle);
-                        
+
                         cardCol.append(cardImage);
 
                         $("#wineArea").append(cardCol);
@@ -185,20 +184,20 @@ $("#add-meal").on("click", function (event) {
             }
         });
     }
-  //images API
-  $.ajax({
-    url: 'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=most_popular&phrase=' + food,
-    method: 'GET',
-    headers: {
-        'Api-Key': 'wyr4aumhujeqza2t6prt6u2h'
-    }
-}).then(function (response) {
-    console.log(response);
-    //adding food image to page
-    var foodImage = $("<img>");
-    foodImage.attr('src', response.images[0].display_sizes[0].uri);
-    $('#test').append(foodImage);
-})
+    //images API
+    //   $.ajax({
+    //     url: 'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=most_popular&phrase=' + food,
+    //     method: 'GET',
+    //     headers: {
+    //         'Api-Key': 'wyr4aumhujeqza2t6prt6u2h'
+    //     }
+    // }).then(function (response) {
+    //     console.log(response);
+    //     //adding food image to page
+    //     var foodImage = $("<img>");
+    //     foodImage.attr('src', response.images[0].display_sizes[0].uri);
+    //     $('#test').append(foodImage);
+    // })
 });
 
 $('.carousel').carousel({
@@ -206,11 +205,9 @@ $('.carousel').carousel({
     indicators: true,
     padding: 0,
 });
-autoplay()   
+autoplay()
+
 function autoplay() {
     $('.carousel').carousel('next');
     setTimeout(autoplay, 3000);
 }
-
-
-
