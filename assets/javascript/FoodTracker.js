@@ -54,12 +54,12 @@ $("#add-meal").on("click", function (event) {
         database.ref("/" + food).push(nutrition);
         // Adding it to local storage
 
-        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity   
-        localStorage.setItem("nutrition-"+food, JSON.stringify(nutrition));
+        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
+        localStorage.setItem("nutrition-" + food, JSON.stringify(nutrition));
         // console.log(JSON.parse(localStorage.getItem("nutrition")));
 
         //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
-        var getNutrition = JSON.parse(localStorage.getItem("nutrition-"+food));
+        var getNutrition = JSON.parse(localStorage.getItem("nutrition-" + food));
         findWine();
     });
 
@@ -117,7 +117,7 @@ $("#add-meal").on("click", function (event) {
                         'style': wineLCBO.style,
                         'imageURL': wineLCBO.image_url
                     }
-                    
+
 
                     function displayWine() {
                         var cardCol = $("<div class='col l3 m9 offset-m1 s10 offset-s1'>")
@@ -131,13 +131,13 @@ $("#add-meal").on("click", function (event) {
                         wineImg.attr('src', wineLCBO.image_url);
                         var wineTitle = $("<span class='card-title'>");
                         wineTitle.text(wineLCBO.name);
-                        cardImage.append(onHoverInfo,wineImg,wineTitle);
+                        cardImage.append(onHoverInfo, wineImg, wineTitle);
                         card.append(cardImage);
                         cardCol.append(card);
 
-                      $("#wineArea").append(cardCol);
-                  }
-                   
+                        $("#wineArea").append(cardCol);
+                    }
+
                     //this will display each of the three wine pairings under a new folder in firebase with the title of the food var
                     database.ref('/' + food).push(newWine);
                     //adds to local storage the food and wine variety as key and name of wine as valuegi
