@@ -23,6 +23,7 @@ $(".img-hide").hide();
 $("#pairing-text").hide();
 $("#wineIntro").hide();
 
+
 $("#add-meal").on("click", function (event) {
     event.preventDefault();
     //this will empty the wine area
@@ -52,9 +53,15 @@ $("#add-meal").on("click", function (event) {
             }
         }).then(function (response) {
             if (response.status === "error") {
+                var fallBackFood = $("<p> Sorry that food is not in our database, please try something else </p>");
                 console.log("lol");
-                alert("not a food yo");
-                
+
+                $(".fallback-Food").append(fallBackFood);
+
+                setTimeout (function(){
+                    $(".fallback-Food").fadeOut().empty();
+                }, 3000);
+
             } else {
                 $(".table-area").show();
                 $(".img-hide").show();
@@ -105,7 +112,15 @@ $("#add-meal").on("click", function (event) {
         }).then(function (response) {
             if (response.status === "failure" || response.pairedWines.length === 0) {
                 console.log("lol");
-                alert('not a wine yo')
+                var fallBackWine = $("<p> Sorry, we don't have any paired wines in our database </p>");
+                console.log("lol");
+
+                $(".fallback-Food").append(fallBackWine);
+
+                setTimeout(function () {
+                    $(".fallback-Food").fadeOut().empty();
+                }, 3000);
+
             } else {
                 console.log('wine pairings')
                 console.log(response);
