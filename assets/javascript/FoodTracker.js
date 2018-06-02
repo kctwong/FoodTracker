@@ -16,12 +16,14 @@ var fat = '';
 var carbs = '';
 var protein = '';
 
+$(".table-area").hide();
+
 $("#add-meal").on("click", function (event) {
     event.preventDefault();
     //this will empty the wine area
     $("#wineArea").empty();
     var food = $("#meal").val().trim();
-
+    $(".table-area").show();
     $.ajax({
         url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
         method: "GET",
