@@ -12,21 +12,22 @@
   <body>
     <div class="container center-align">
       <div class="row">
-        <h1>Perfect Pair</h1>
+        <h1 class="h1">Perfect Pair</h1>
       </div>
       <div class="row">
-        <h2><span>Your Food &amp; Wine Pairing App</span></h2>
+        <h2 class="h2 col s12"><span>Your Food &amp; Wine Pairing App</span></h2>
       </div>
 
       <div class="row hide-on-meal-submit center-align">
-          <form class="col s12">
-              <div class="input-field col s5 offset-s3">
+          <form class="col m12 s12">
+
+              <div class="input-field col l7 offset-l2 m7 offset-m1 s12">
                 <input id="meal" type="text" class="validate ">
                 <label for="meal" id=
-                meal" class="active ">What do you feel like for dinner?</label>
+                "meal" class="active ">What do you feel like for dinner?</label>
               </div>
 
-                <div class="col s5" id="less-margin">
+                <div id="less-margin">
                   <button class="btn" id="add-meal" type="submit" name="action">Submit
                   </button>
               </div>
@@ -66,21 +67,25 @@
       </div>
 
 
+
       <div class="row">
-        <div class="col s3 m3">
+        <div class="col l3 m9 offset-m1 s10 offset-s1">
           <div class="card">
             <div class="card-image">
-              <div class="hover" id="hover-wine-one">
-                <p>Wine One Info</p>
+              <div class="card-reveal" id="hover-wine-one">
+                <p>Sugar content: 5g/L</p>
+                <p>Price: $14.95</p>
+                <p>Medium-bodied & fruity</p>
               </div>
-              <img src="http://via.placeholder.com/100x150">
-              <span class="card-title">G. Marquis Pinot Grigio 2015</span>
+              <div class="activator">
+                <img src="http://via.placeholder.com/100x150">
+                <span class="card-title">G. Marquis Pinot Grigio 2015</span>
+              </div>
             </div>
           </div>
         </div>
 
-
-        <div class="col s3 offset-s1">
+        <div class="col l3 offset-l1 m9 offset-m1 s10 offset-s1">
           <div class="card">
             <div class="card-image">
               <div class="hover" id="hover-wine-two">
@@ -93,8 +98,9 @@
         </div>
 
 
-        <div class="col s3 offset-s1">
+        <div class="col l3 offset-l1 m9 offset-m1 s10 offset-s1">
           <div class="card">
+
             <div class="card-image">
               <div class="hover" id="hover-wine-three">
                 <p>Wine Three Info</p>
@@ -102,6 +108,7 @@
               <img src="http://via.placeholder.com/100x150">
               <span class="card-title">Palatine Hill Gamay Noir Ros&eacute;</span>
             </div>
+
           </div>
         </div>
       </div>

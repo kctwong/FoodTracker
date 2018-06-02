@@ -259,6 +259,53 @@ template {
     overflow: hidden;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* Our CSS */
+@media (max-width:1050px){
+    #meal {
+
+    }
+}
+@media (max-width: 665px) {
+    .h1 {
+        font-size: 5em;
+    }
+    .h2 {
+        font-size: 1em;
+        border-bottom: none;
+        background: none;
+    }
+    form {
+        display:flex;
+        flex-direction:column;
+
+    }
+}
+
+@media (max-width: 408px) {
+    .h2 {
+        font-size: 15px;
+    }
+    #meal{
+        font-size:1.4em;
+    }
+    div form {
+        margin-top:5vh;
+    }
+
+}
+
 body {
     font-family: 'Song Myung',
     serif;
@@ -298,13 +345,11 @@ h2 span {
 
 }
 
-.btn:hover {
+.btn:hover, .btn:focus {
     background-color:#B22222;
 }
 
-img {
-    display:none;
-}
+
 
 .input-field label {
     font-size:1.5rem;
@@ -350,28 +395,12 @@ body {
     justify-content:space-evenly;
 }
 
-.hover {
-    background-color:rgba(0, 0, 0, 0.5);
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    /* display:none; */
-    position:absolute;
-    margin:0;
+.card-reveal {
+    height:100%;
+    width:100%;
 }
-
-.card-image {
-    display:relative;
-}
-
-
-.card-image:hover .hover{
-       display:block;
-}
-
 table {
-    /* display: none; */
+    display: none;
 }
 
 

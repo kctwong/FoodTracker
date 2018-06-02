@@ -48,11 +48,11 @@
         "carbohydrates": carbs,
         "fat": fat,
         "protein": protein
-      }      
+      }
         database.ref("/"+food).push(nutrition);
         // Adding it to local storage
-        
-        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity   
+
+        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
         localStorage.setItem("nutrition", JSON.stringify(nutrition));
         console.log( JSON.parse(localStorage.getItem("nutrition")));
 
@@ -66,7 +66,7 @@ $.ajax({
     headers:{
         "X-Mashape-Key":"mWSYqC5gHvmshnuUYlyxmn2HId5zp1uP4wHjsnKKFlHkkIhAvq",
         "X-Mashape-Host":"spoonacular-recipe-food-nutrition-v1.p.mashape.com"
-    } 
+    }
   }).then(function(response) {
     console.log('wine pairings')
     console.log(response);
@@ -83,7 +83,7 @@ $.ajax({
         $.ajax({
           url: 'https://lcboapi.com/products?q=' + wineChoice[i],
           method: 'GET',
-          headers: { 
+          headers: {
               'Authorization': 'Token MDo4MzRjY2I1MC02MGZiLTExZTgtODMzMS1iZmE1NDQ0YmJkZWE6TXJRWHdkYmF3TkZ1NTFlaERJYVZvdFZkakVzSlk3VWFSRzRk' }
         }).then(function(response) {
           console.log(response);
@@ -147,20 +147,39 @@ $.ajax({
         });
       }
   });
-  
+
 //images API
     $.ajax({
         url: 'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=most_popular&phrase=' + food,
         method: 'GET',
-        headers: { 
+        headers: {
             'Api-Key':'wyr4aumhujeqza2t6prt6u2h'}
     }).then(function(response) {
         console.log(response);
         //adding food image to page
         var foodImage = $("<img>");
         foodImage.attr('src', response.images[0].display_sizes[0].uri);
-        $('body').append(foodImage); 
+        $('body').append(foodImage);
     });
       });
 
-  
+
+
+      
+
+// wine cards on hover
+
+$(".card-image").mouseenter(function (e) {
+    console.log("hi");
+    $(".card-reveal").css("z-index", 3000);
+    $(".activator").css("z-index", -100);
+
+});
+$(".card-image").mouseleave(function (h) {
+    console.log("bye");
+    $(".card-reveal").css("z-index", -100);
+    $(".activator").css("z-index", 3000);
+
+});
+
+
