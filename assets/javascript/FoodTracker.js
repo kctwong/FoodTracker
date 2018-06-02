@@ -130,10 +130,11 @@ $("#add-meal").on("click", function (event) {
                         'Authorization': 'Token MDo4MzRjY2I1MC02MGZiLTExZTgtODMzMS1iZmE1NDQ0YmJkZWE6TXJRWHdkYmF3TkZ1NTFlaERJYVZvdFZkakVzSlk3VWFSRzRk'
                     }
                 }).then(function (response) {
+                    var randomNumber = Math.floor(Math.random() * (19 - 0 + 1)) + 0;
 
 
                     console.log(response);
-                    var wineLCBO = response.result[0];
+                    var wineLCBO = response.result[randomNumber];
                     console.log("name: " + wineLCBO.name);
                     console.log("varietal: " + wineLCBO.varietal);
                     console.log("image URL: " + wineLCBO.image_url);
