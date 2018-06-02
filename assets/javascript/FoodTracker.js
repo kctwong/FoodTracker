@@ -160,7 +160,7 @@ $("#add-meal").on("click", function (event) {
 
 
                     function displayWine() {
-                        var cardCol = $("<div class='col l3 m9 offset-m1 s10 offset-s1'>")
+                        var cardCol = $("<div class='col l4 m9 offset-m1 s10 offset-s1'>")
 
                         var cardImage = $("<div class='card-image'>")
                         var onHoverInfo = $("<div class='card-reveal' id='hover-wine'>")
