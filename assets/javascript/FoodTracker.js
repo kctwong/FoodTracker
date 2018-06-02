@@ -17,11 +17,13 @@ var carbs = '';
 var protein = '';
 $(".table-area").hide();
 $(".img-hide").hide();
+$("#pairing-text").hide();
 
 $("#add-meal").on("click", function (event) {
     event.preventDefault();
     //this will empty the wine area
     $("#wineArea").empty();
+<<<<<<< HEAD
     $(".table-area").show();
     $(".img-hide").show();
 
@@ -56,6 +58,51 @@ $("#add-meal").on("click", function (event) {
             $("#carbohydrates-input").text(carbs);
             $("#protein-input").text(protein);
 
+=======
+    var Food = $("#meal").val().trim();
+    var food = Food.toLowerCase();
+    $("#meal").val("");
+    if (localStorage.getItem(food + "nutrition")) {
+        console.log("this was searched for");
+        var getNutrition = JSON.parse(localStorage.getItem(food + "nutrition"));
+        console.log(getNutrition);
+        $(".table-area").show();
+        $(".img-hide").show();
+        $("#calories-input").text(getNutrition.calories);
+        $("#fat-input").text(getNutrition.fat);
+        $("#carbohydrates-input").text(getNutrition.carbohydrates);
+        $("#protein-input").text(getNutrition.protein);
+        findWine();
+
+    } else {
+        $.ajax({
+            url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
+            method: "GET",
+            headers: {
+                "X-Mashape-Key": "mWSYqC5gHvmshnuUYlyxmn2HId5zp1uP4wHjsnKKFlHkkIhAvq",
+                "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
+            }
+        }).then(function (response) {
+            if (response.status === "error"){
+                console.log("lol");
+                alert('not a food yo')
+            }
+            else {
+            $(".table-area").show();
+            $(".img-hide").show();
+            console.log(food);
+            console.log(response);
+            var calories = response.calories.value;
+            var carbs = response.carbs.value;
+            var fat = response.fat.value;
+            var protein = response.protein.value;
+            console.log(calories, carbs, fat, protein);
+            $("#calories-input").text(calories);
+            $("#fat-input").text(fat);
+            $("#carbohydrates-input").text(carbs);
+            $("#protein-input").text(protein);
+
+>>>>>>> 6e270f2c9c6a6220203ac3f8a1484ad3047ae60f
             $("#meal").val("");
             // Pushing meal and macro values to the database
             var nutrition = {
@@ -75,6 +122,7 @@ $("#add-meal").on("click", function (event) {
             //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
             var getNutrition = JSON.parse(localStorage.getItem("nutrition-" + food));
             findWine();
+        }
         });
     }
 
@@ -88,16 +136,23 @@ $("#add-meal").on("click", function (event) {
                 "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
             }
         }).then(function (response) {
+            if (response.status === "failure" || response.pairedWines.length === 0){
+                console.log("lol");
+                alert('not a wine yo')
+            }else{
             console.log('wine pairings')
             console.log(response);
             //shows the top 3 wines for i=[0,2]
             console.log(response.pairedWines)
             //shows wine pairing text for whatever food
             console.log(response.pairingText)
+            $("#pairing-text").html(response.pairingText);
+            $('#pairing-text').show();
             wineChoice = response.pairedWines;
             for (var i = 0; i < wineChoice.length; i++) {
                 console.log(wineChoice[i]);
                 wineCall();
+            }
             }
             //this function will query the LCBO wine API for each of the three top wine pairings
             function wineCall() {
@@ -108,6 +163,8 @@ $("#add-meal").on("click", function (event) {
                         'Authorization': 'Token MDo4MzRjY2I1MC02MGZiLTExZTgtODMzMS1iZmE1NDQ0YmJkZWE6TXJRWHdkYmF3TkZ1NTFlaERJYVZvdFZkakVzSlk3VWFSRzRk'
                     }
                 }).then(function (response) {
+
+
                     console.log(response);
                     var wineLCBO = response.result[0];
                     console.log("name: " + wineLCBO.name);
@@ -155,9 +212,8 @@ $("#add-meal").on("click", function (event) {
 
                     //this will display each of the three wine pairings under a new folder in firebase with the title of the food var
                     database.ref('/' + food).push(newWine);
-                    //adds to local storage the food and wine variety as key and name of wine as valuegi
+                    //adds to local storage the food and wine variety as key and name of wine as value
                     localStorage.setItem(food + wineLCBO.varietal, JSON.stringify(newWine));
-
                 });
             }
         });
