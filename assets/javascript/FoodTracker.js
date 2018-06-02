@@ -1,3 +1,6 @@
+$(document).ready(function(){
+    $('.modal').modal();
+  });
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyDjOZYeHYU1gc7YLAbhuDKaKhQ8--1f1f8",
@@ -50,7 +53,7 @@ $("#add-meal").on("click", function (event) {
         }).then(function (response) {
             if (response.status === "error") {
                 console.log("lol");
-                alert('not a food yo')
+                
             } else {
                 $(".table-area").show();
                 $(".img-hide").show();
