@@ -394,13 +394,50 @@ body {
     flex-direction:row;
     justify-content:space-evenly;
 }
-
 .card-reveal {
-    height:100%;
-    width:100%;
+    font-size:1.3em;
+    padding-top:25%;
+    display: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.7);
 }
 
+.card-image {
+    position: relative;
+    display: block;
+    border-radius: 2px 2px 0 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.activator {
+    display: block;
+}
+
+.card-image:hover .card-reveal {
+    display: block;
+}
+
+.card-title {
+    position:relative;
+}
+
+#pairing-text {
+    line-height:
+}
+
+
 #wineImg {
+    max-width:100%;
     overflow: hidden;
 }
 
