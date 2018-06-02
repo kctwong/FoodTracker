@@ -22,60 +22,71 @@ $("#add-meal").on("click", function (event) {
     event.preventDefault();
     //this will empty the wine area
     $("#wineArea").empty();
-    $(".table-area").show();
-    $(".img-hide").show();
-
-    var food = $("#meal").val().trim();
-    if (localStorage.getItem(food+"nutrition")) {
+    var Food = $("#meal").val().trim();
+    var food = Food.toLowerCase();
+    $("#meal").val("");
+    if (localStorage.getItem(food + "nutrition")) {
         console.log("this was searched for");
-        var getNutrition = JSON.parse(localStorage.getItem(food+"nutrition"));
+        var getNutrition = JSON.parse(localStorage.getItem(food + "nutrition"));
         console.log(getNutrition);
+        $(".table-area").show();
+        $(".img-hide").show();
         $("#calories-input").text(getNutrition.calories);
         $("#fat-input").text(getNutrition.fat);
         $("#carbohydrates-input").text(getNutrition.carbohydrates);
         $("#protein-input").text(getNutrition.protein);
         findWine();
-      }else {$.ajax({
-        url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
-        method: "GET",
-        headers: {
-            "X-Mashape-Key": "mWSYqC5gHvmshnuUYlyxmn2HId5zp1uP4wHjsnKKFlHkkIhAvq",
-            "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
+
+    } else {
+        $.ajax({
+            url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/guessNutrition?title=" + food,
+            method: "GET",
+            headers: {
+                "X-Mashape-Key": "mWSYqC5gHvmshnuUYlyxmn2HId5zp1uP4wHjsnKKFlHkkIhAvq",
+                "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
+            }
+        }).then(function (response) {
+            if (response.status === "error"){
+                console.log("lol");
+                alert('not a food yo')
+            }
+            else {
+            $(".table-area").show();
+            $(".img-hide").show();
+            console.log(food);
+            console.log(response);
+            var calories = response.calories.value;
+            var carbs = response.carbs.value;
+            var fat = response.fat.value;
+            var protein = response.protein.value;
+            console.log(calories, carbs, fat, protein);
+            $("#calories-input").text(calories);
+            $("#fat-input").text(fat);
+            $("#carbohydrates-input").text(carbs);
+            $("#protein-input").text(protein);
+
+            $("#meal").val("");
+            // Pushing meal and macro values to the database
+            var nutrition = {
+                "recipe": food,
+                "calories": calories,
+                "carbohydrates": carbs,
+                "fat": fat,
+                "protein": protein
+            }
+            database.ref("/" + food).push(nutrition);
+            // Adding it to local storage
+
+            // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
+            localStorage.setItem(food + "nutrition", JSON.stringify(nutrition));
+            // console.log(JSON.parse(localStorage.getItem("nutrition")));
+
+            //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
+            var getNutrition = JSON.parse(localStorage.getItem("nutrition-" + food));
+            findWine();
         }
-    }).then(function (response) {
-        console.log(food);
-        console.log(response);
-        var calories = response.calories.value;
-        var carbs = response.carbs.value;
-        var fat = response.fat.value;
-        var protein = response.protein.value;
-        console.log(calories, carbs, fat, protein);
-        $("#calories-input").text(calories);
-        $("#fat-input").text(fat);
-        $("#carbohydrates-input").text(carbs);
-        $("#protein-input").text(protein);
-
-        $("#meal").val("");
-        // Pushing meal and macro values to the database
-        var nutrition = {
-            "recipe": food,
-            "calories": calories,
-            "carbohydrates": carbs,
-            "fat": fat,
-            "protein": protein
-        }
-        database.ref("/" + food).push(nutrition);
-        // Adding it to local storage
-
-        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
-        localStorage.setItem(food + "nutrition", JSON.stringify(nutrition));
-        // console.log(JSON.parse(localStorage.getItem("nutrition")));
-
-        //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
-        var getNutrition = JSON.parse(localStorage.getItem("nutrition-" + food));
-        findWine();
-    });
-}
+        });
+    }
 
     function findWine() {
         // Capture values from text boxes
@@ -87,6 +98,10 @@ $("#add-meal").on("click", function (event) {
                 "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
             }
         }).then(function (response) {
+            if (response.status === "failure" || response.pairedWines.length === 0){
+                console.log("lol");
+                alert('not a wine yo')
+            }else{
             console.log('wine pairings')
             console.log(response);
             //shows the top 3 wines for i=[0,2]
@@ -98,6 +113,7 @@ $("#add-meal").on("click", function (event) {
                 console.log(wineChoice[i]);
                 wineCall();
             }
+            }
             //this function will query the LCBO wine API for each of the three top wine pairings
             function wineCall() {
                 $.ajax({
@@ -107,6 +123,8 @@ $("#add-meal").on("click", function (event) {
                         'Authorization': 'Token MDo4MzRjY2I1MC02MGZiLTExZTgtODMzMS1iZmE1NDQ0YmJkZWE6TXJRWHdkYmF3TkZ1NTFlaERJYVZvdFZkakVzSlk3VWFSRzRk'
                     }
                 }).then(function (response) {
+
+
                     console.log(response);
                     var wineLCBO = response.result[0];
                     console.log("name: " + wineLCBO.name);
@@ -154,9 +172,8 @@ $("#add-meal").on("click", function (event) {
 
                     //this will display each of the three wine pairings under a new folder in firebase with the title of the food var
                     database.ref('/' + food).push(newWine);
-                    //adds to local storage the food and wine variety as key and name of wine as valuegi
+                    //adds to local storage the food and wine variety as key and name of wine as value
                     localStorage.setItem(food + wineLCBO.varietal, JSON.stringify(newWine));
-                    
                 });
             }
         });
