@@ -133,7 +133,8 @@ $("#add-meal").on("click", function (event) {
                     console.log("name: " + wineLCBO.name);
                     console.log("varietal: " + wineLCBO.varietal);
                     console.log("image URL: " + wineLCBO.image_url);
-                    console.log("price: $" + (wineLCBO.price_in_cents) / 100);
+                    var price = (wineLCBO.price_in_cents) / 100
+                    console.log("price: $" + price);
                     console.log("sugar in g/L: " + wineLCBO.sugar_in_grams_per_liter);
                     console.log("package: " + wineLCBO.package);
                     console.log("mL: " + wineLCBO.package_unit_volume_in_milliliters);
@@ -156,19 +157,20 @@ $("#add-meal").on("click", function (event) {
 
                     function displayWine() {
                         var cardCol = $("<div class='col l3 m9 offset-m1 s10 offset-s1'>")
-                        var card = $("<div class='card'>")
+                        
                         var cardImage = $("<div class='card-image'>")
-                        var onHoverInfo = $("<div class='hover'>")
-                        var textInfo = $("<p>");
-                        textInfo.text(wineLCBO.name);
+                        var onHoverInfo = $("<div class='card-reveal' id='hover-wine-one'>")
+                        var textInfo = $("<p id='pairing-text'>");
+                        var innerText = "Price: $" + price + "<br>" + "Sugar (g/L): " + wineLCBO.sugar_in_grams_per_liter + "<br>" + wineLCBO.style 
+                        textInfo.html(innerText);
                         onHoverInfo.append(textInfo);
                         var wineImg = $("<img id='wineImage'>");
                         wineImg.attr('src', wineLCBO.image_url);
                         var wineTitle = $("<span class='card-title'>");
                         wineTitle.text(wineLCBO.name);
                         cardImage.append(onHoverInfo, wineImg, wineTitle);
-                        card.append(cardImage);
-                        cardCol.append(card);
+                        
+                        cardCol.append(cardImage);
 
                         $("#wineArea").append(cardCol);
                     }
