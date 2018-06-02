@@ -1,25 +1,28 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
-    <title>Perfect Pair</title>
-    <link rel="icon" href="assets/favicon.png">
+<head>
+  <title>Perfect Pair</title>
+  <link rel="icon" href="assets/favicon.png">
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Song+Myung" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
-  </head>
-  <body>
-    <div class="container center-align">
-      <div class="row">
-        <h1 class="h1">Perfect Pair</h1>
-      </div>
-      <div class="row">
-        <h2 class="h2 col s12"><span>Your Food &amp; Wine Pairing App</span></h2>
-      </div>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Song+Myung" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+  <div class="container center-align">
+    <div class="row">
+      <h1 class="h1">Perfect Pair</h1>
+    </div>
+    <div class="row">
+      <h2 class="h2 col s12">
+        <span>Your Food &amp; Wine Pairing App</span>
+      </h2>
+    </div>
     <div class="row">
       <div class="col xl6 l12 m12 s12 img-hide">
         <img src="http://via.placeholder.com/450x300">
@@ -56,93 +59,96 @@
       </div>
     </div>
 
-
-      <div class="row hide-on-meal-submit center-align">
-          <form class="col m12 s12">
-
-              <div class="input-field col l7 offset-l2 m7 offset-m1 s12">
-                <input id="meal" type="text" class="validate ">
-                <label for="meal" id=
-                "meal" class="active ">What do you feel like for dinner?</label>
-              </div>
-                <div id="less-margin">
-                  <button class="btn" id="add-meal" type="submit" name="action">Submit
-                  </button>
-              </div>
-        </form>
-
+    <div class="row">
+      <div class="col l12 m12 s12">
+        <p id="pairing-text"></p>
       </div>
+    </div>
 
+    <div class="row hide-on-meal-submit center-align">
+      <form class="col m12 s12">
 
-
-<div id="wineArea">
-hello
-</div>
-
-
-
-      <div class="row">
-        <div class="col l3 m9 offset-m1 s10 offset-s1">
-          <div class="card">
-            <div class="card-image">
-              <div class="card-reveal" id="hover-wine-one">
-                <p>Sugar content: 5g/L</p>
-                <p>Price: $14.95</p>
-                <p>Medium-bodied & fruity</p>
-              </div>
-              <div class="activator">
-                <img src="http://via.placeholder.com/100x150">
-                <span class="card-title">G. Marquis Pinot Grigio 2015</span>
-              </div>
-            </div>
-          </div>
+        <div class="input-field col l7 offset-l2 m7 offset-m1 s12">
+          <input id="meal" type="text" class="validate ">
+          <label for="meal" id="meal" class="active ">What do you feel like for dinner?</label>
         </div>
-
-
-        <div class="col l3 offset-l1 m9 offset-m1 s10 offset-s1">
-          <div class="card">
-            <div class="card-image">
-              <div class="hover" id="hover-wine-two">
-
-                <p>Wine Two Info</p>
-              </div>
-              <img src="http://via.placeholder.com/100x150 ">
-              <span class="card-title ">Tawse Wineries Gamay Noir 2013</span>
-            </div>
-          </div>
+        <div id="less-margin">
+          <button class="btn" id="add-meal" type="submit" name="action">Submit
+          </button>
         </div>
+      </form>
+
+    </div>
 
 
 
-        <div class="col l3 offset-l1 m9 offset-m1 s10 offset-s1">
-          <div class="card">
+    <div id="wineArea">
+     
+    </div>
 
-            <div class="card-image">
-              <div class="hover" id="hover-wine-three">
 
-                <p>Wine Three Info</p>
-              </div>
-              <img src="http://via.placeholder.com/100x150 ">
-              <span class="card-title ">Palatine Hill Gamay Noir Ros&eacute;</span>
+
+    <div class="row">
+      <div class="col l3 m9 offset-m1 s10 offset-s1">
+        <div class="card">
+          <div class="card-image">
+            <div class="card-reveal" id="hover-wine-one">
+              <p>Sugar content: 5g/L</p>
+              <p>Price: $14.95</p>
+              <p>Medium-bodied & fruity</p>
             </div>
-
+            <div class="activator">
+              <img src="http://via.placeholder.com/100x150">
+              <span class="card-title">G. Marquis Pinot Grigio 2015</span>
+            </div>
           </div>
         </div>
       </div>
 
-</div>
 
-   <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js "
-    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-    crossorigin=" anonymous "></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js "></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q
+      <div class="col l3 offset-l1 m9 offset-m1 s10 offset-s1">
+        <div class="card">
+          <div class="card-image">
+            <div class="hover" id="hover-wine-two">
+
+              <p>Wine Two Info</p>
+            </div>
+            <img src="http://via.placeholder.com/100x150 ">
+            <span class="card-title ">Tawse Wineries Gamay Noir 2013</span>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col l3 offset-l1 m9 offset-m1 s10 offset-s1">
+        <div class="card">
+
+          <div class="card-image">
+            <div class="hover" id="hover-wine-three">
+
+              <p>Wine Three Info</p>
+            </div>
+            <img src="http://via.placeholder.com/100x150 ">
+            <span class="card-title ">Palatine Hill Gamay Noir Ros&eacute;</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js " integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin=" anonymous "></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js "></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q
             " crossorigin="anonymous "></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js " integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl
             " crossorigin="anonymous "></script> -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js "></script> -->
-    <script src="./assets/javascript/FoodTracker.js"></script>
-  </body>
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js "></script> -->
+  <script src="./assets/javascript/FoodTracker.js"></script>
+</body>
+
 </html>
