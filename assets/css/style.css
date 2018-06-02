@@ -399,8 +399,13 @@ body {
     height:100%;
     width:100%;
 }
+
 table {
     display: none;
+}
+
+#wineImg {
+    overflow: hidden;
 }
 
 
