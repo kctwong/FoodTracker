@@ -271,10 +271,14 @@ template {
 
 
 
+
+
+
+
+
 /* Our CSS */
 @media (max-width:1050px){
     #meal {
-
     }
 }
 @media (max-width: 665px) {
@@ -302,6 +306,9 @@ template {
     }
     div form {
         margin-top:5vh;
+    }
+    .carousel, .bottom {
+        display:none;
     }
 
 }
@@ -492,6 +499,14 @@ img {
 
 .multi-item-carousel.next{
     left: -33%;
+}
+
+.carousel {
+    margin-top:50vh;
+}
+
+.bottom {
+    margin-top:25%;
 }
 
 
