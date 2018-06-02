@@ -53,6 +53,7 @@ $("#add-meal").on("click", function (event) {
         }).then(function (response) {
             if (response.status === "error") {
                 console.log("lol");
+                alert("not a food yo");
                 
             } else {
                 $(".table-area").show();
