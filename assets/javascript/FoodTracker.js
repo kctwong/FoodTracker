@@ -18,6 +18,7 @@ var protein = '';
 $(".table-area").hide();
 $(".img-hide").hide();
 $("#pairing-text").hide();
+$("#wineIntro").hide();
 
 $("#add-meal").on("click", function (event) {
     event.preventDefault();
@@ -111,6 +112,7 @@ $("#add-meal").on("click", function (event) {
             console.log(response.pairingText)
             $("#pairing-text").html(response.pairingText);
             $('#pairing-text').show();
+            $("#wineIntro").show();
             wineChoice = response.pairedWines;
             for (var i = 0; i < wineChoice.length; i++) {
                 console.log(wineChoice[i]);
