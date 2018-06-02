@@ -404,6 +404,7 @@ body {
 }
 .card-reveal {
     font-size:1.3em;
+    line-height:1.7em;
     padding-top:25%;
     display: none;
     top: 0;
@@ -412,7 +413,7 @@ body {
     right: 0;
     position: absolute;
     margin: 0;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .card-image {
@@ -437,6 +438,7 @@ body {
 
 .card-title {
     position:relative;
+    font-size:1.5em;
 }
 
 #pairing-text {
@@ -506,7 +508,7 @@ img {
 }
 
 .bottom {
-    margin-top:25%;
+    margin-top:20%;
 }
 
 
