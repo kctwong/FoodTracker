@@ -52,7 +52,7 @@ $("#add-meal").on("click", function (event) {
         database.ref("/" + food).push(nutrition);
         // Adding it to local storage
 
-        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity   
+        // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
         localStorage.setItem("nutrition", JSON.stringify(nutrition));
         console.log(JSON.parse(localStorage.getItem("nutrition")));
 
