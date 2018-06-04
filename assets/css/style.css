@@ -259,23 +259,6 @@ template {
     overflow: hidden;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Our CSS */
 @media (max-width:1050px){
     #meal {
@@ -495,7 +478,6 @@ img {
     color: black;
     font-size: 20px;
 } 
-}
 
 .multi-item-carousel>.carousel-inner>.item{
     transition: .6s ease-in-out all;
