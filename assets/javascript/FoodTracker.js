@@ -23,6 +23,7 @@ $("#wineIntro").hide();
 
 $("#add-meal").on("click", function (event) {
     event.preventDefault();
+    $('html').scrollTop(0);
     //this will empty the wine area
     $("#wineArea").empty();
     $("#pairing-text").empty();
