@@ -25,6 +25,7 @@ $("#add-meal").on("click", function (event) {
     event.preventDefault();
     //this will empty the wine area
     $("#wineArea").empty();
+    $("#pairing-text").empty();
     $("#fallback-Food").empty();
     var Food = $("#meal").val().trim();
     var food = Food.toLowerCase();
@@ -50,6 +51,7 @@ $("#add-meal").on("click", function (event) {
                 "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
             }
         }).then(function (response) {
+            //error for food not in spoonacular
             if (response.status === "error") {
                 var fallBackFood = $("<p> Sorry that food is not in our database, please try something else </p>");
                 console.log("lol");
@@ -81,11 +83,9 @@ $("#add-meal").on("click", function (event) {
                 }
                 database.ref("/" + food).push(nutrition);
                 // Adding it to local storage
-
                 // localStorage.clear();  --------- left this commented, just in case that we don't want to clear previous activity
                 localStorage.setItem(food + "nutrition", JSON.stringify(nutrition));
                 // console.log(JSON.parse(localStorage.getItem("nutrition")));
-
                 //If we need to retrieve the object from local storage, we can use a variable for the retrieved object:
                 var getNutrition = JSON.parse(localStorage.getItem("nutrition-" + food));
                 findWine();
@@ -107,13 +107,7 @@ $("#add-meal").on("click", function (event) {
                 console.log("lol");
                 var fallBackWine = $("<p> Sorry, we don't have any paired wines in our database </p>");
                 console.log("lol");
-
-                $(".fallback-Food").append(fallBackWine);
-
-                setTimeout(function () {
-                    $(".fallback-Food").fadeOut().empty();
-                }, 3000);
-
+                $("#wineArea").append(fallBackWine);
             } else {
                 console.log('wine pairings')
                 console.log(response);
@@ -208,7 +202,7 @@ $("#add-meal").on("click", function (event) {
         var foodImage = $("<img>");
         var foodImageURL = response.hits[0].largeImageURL;
         foodImage.attr('src', foodImageURL);
-        $('body').append(foodImage);
+        $('.img-hide').html(foodImage);
         console.log(foodImage);
     })
 });
