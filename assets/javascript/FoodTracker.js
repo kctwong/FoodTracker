@@ -25,6 +25,7 @@ $("#add-meal").on("click", function (event) {
     event.preventDefault();
     //this will empty the wine area
     $("#wineArea").empty();
+    $("#fallback-Food").empty();
     var Food = $("#meal").val().trim();
     var food = Food.toLowerCase();
     $("#meal").val("");
@@ -52,12 +53,7 @@ $("#add-meal").on("click", function (event) {
             if (response.status === "error") {
                 var fallBackFood = $("<p> Sorry that food is not in our database, please try something else </p>");
                 console.log("lol");
-
-                $(".fallback-Food").append(fallBackFood);
-
-                setTimeout (function(){
-                    $(".fallback-Food").fadeOut().empty();
-                }, 3000);
+                $("#fallback-Food").append(fallBackFood);
 
             } else {
                 $(".table-area").show();
