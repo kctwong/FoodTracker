@@ -206,7 +206,6 @@ $("#add-meal").on("click", function (event) {
         var foodImageURL = response.hits[0].largeImageURL;
         foodImage.attr('src', foodImageURL);
         $('.img-hide').html(foodImage);
-        console.log(foodImage);
     })
 });
 
