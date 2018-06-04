@@ -526,7 +526,10 @@ img {
     margin-top:20%;
 }
 
-
+#wineError,
+#fallback-Food {
+    font-size: 2em;
+}
 
 
 
