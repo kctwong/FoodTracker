@@ -389,7 +389,7 @@ form {
 body {
     height:100%;
     background:linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
-    url("../julien-pianetti-147831-unsplash.jpg"), center;
+    url("../images/julien-pianetti-147831-unsplash.jpg"), center;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
