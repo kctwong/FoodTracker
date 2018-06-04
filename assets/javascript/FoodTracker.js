@@ -197,10 +197,11 @@ $("#add-meal").on("click", function (event) {
     }
     //Food Images API
     $.ajax({
-        url: 'https://pixabay.com/api/?key=' + '9191233-f0142d44da13f3353c64ec9fc' + '&q=' + food + '&image_type=photo&safesearch=true',
+        url: 'https://pixabay.com/api/?key=' + '9191233-f0142d44da13f3353c64ec9fc' + '&q=' + food + '+food' + '&image_type=photo&safesearch=true',
         method: 'GET',
         // key: '9191233-f0142d44da13f3353c64ec9fc'
     }).then(function (response) {
+        console.log($.ajax)
         console.log(response);
         //adding food image to page
         var foodImage = $("<img>");
