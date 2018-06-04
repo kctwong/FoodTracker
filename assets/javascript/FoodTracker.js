@@ -123,7 +123,7 @@ $("#add-meal").on("click", function (event) {
                 $('#pairing-text').show();
                 $("#wineIntro").show();
                 wineChoice = response.pairedWines;
-                for (var i = 0; i < wineChoice.length; i++) {
+                for (var i = 0; i < 3; i++) {
                     console.log(wineChoice[i]);
                     wineCall();
                 }
