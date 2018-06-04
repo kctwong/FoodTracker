@@ -56,6 +56,9 @@ $("#add-meal").on("click", function (event) {
                 var fallBackFood = $("<p> Sorry that food is not in our database, please try something else </p>");
                 console.log("lol");
                 $("#fallback-Food").append(fallBackFood);
+                $(".table-area").hide();
+                $(".img-hide").hide();
+
 
             } else {
                 $(".table-area").show();
@@ -191,8 +194,8 @@ $("#add-meal").on("click", function (event) {
             }
         });
     }
-//Food Images API
-      $.ajax({
+    //Food Images API
+    $.ajax({
         url: 'https://pixabay.com/api/?key=' + '9191233-f0142d44da13f3353c64ec9fc' + '&q=' + food + '&image_type=photo&safesearch=true',
         method: 'GET',
         // key: '9191233-f0142d44da13f3353c64ec9fc'
