@@ -1,6 +1,3 @@
-$(document).ready(function(){
-    $('.modal').modal();
-  });
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyDjOZYeHYU1gc7YLAbhuDKaKhQ8--1f1f8",
@@ -204,19 +201,19 @@ $("#add-meal").on("click", function (event) {
             }
         });
     }
-    // images API
+//Food Images API
       $.ajax({
-        url: 'https://api.gettyimages.com/v3/search/images?fields=title,thumb,referral_destinations&sort_order=best_match&phrase=' + food,
+        url: 'https://pixabay.com/api/?key=' + '9191233-f0142d44da13f3353c64ec9fc' + '&q=' + food + '&image_type=photo&safesearch=true',
         method: 'GET',
-        headers: {
-            'Api-Key': 'wyr4aumhujeqza2t6prt6u2h'
-        }
+        // key: '9191233-f0142d44da13f3353c64ec9fc'
     }).then(function (response) {
         console.log(response);
         //adding food image to page
         var foodImage = $("<img>");
-        foodImage.attr('src', response.images[0].display_sizes[0].uri);
+        var foodImageURL = response.hits[0].largeImageURL;
+        foodImage.attr('src', foodImageURL);
         $('body').append(foodImage);
+        console.log(foodImage);
     })
 });
 
