@@ -189,20 +189,20 @@ $("#add-meal").on("click", function (event) {
             }
         });
     }
-    //images API
-    //   $.ajax({
-    //     url: 'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=most_popular&phrase=' + food,
-    //     method: 'GET',
-    //     headers: {
-    //         'Api-Key': 'wyr4aumhujeqza2t6prt6u2h'
-    //     }
-    // }).then(function (response) {
-    //     console.log(response);
-    //     //adding food image to page
-    //     var foodImage = $("<img>");
-    //     foodImage.attr('src', response.images[0].display_sizes[0].uri);
-    //     $('#test').append(foodImage);
-    // })
+    // images API
+      $.ajax({
+        url: 'https://api.gettyimages.com/v3/search/images?fields=title,thumb,referral_destinations&sort_order=best_match&phrase=' + food,
+        method: 'GET',
+        headers: {
+            'Api-Key': 'wyr4aumhujeqza2t6prt6u2h'
+        }
+    }).then(function (response) {
+        console.log(response);
+        //adding food image to page
+        var foodImage = $("<img>");
+        foodImage.attr('src', response.images[0].display_sizes[0].uri);
+        $('body').append(foodImage);
+    })
 });
 
 $('.carousel').carousel({
