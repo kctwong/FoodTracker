@@ -125,7 +125,7 @@ $("#add-meal").on("click", function (event) {
                     url: 'https://lcboapi.com/products?q=' + wineChoice[i],
                     method: 'GET',
                     headers: {
-                        'Authorization': 'Token MDo4MzRjY2I1MC02MGZiLTExZTgtODMzMS1iZmE1NDQ0YmJkZWE6TXJRWHdkYmF3TkZ1NTFlaERJYVZvdFZkakVzSlk3VWFSRzRk'
+                        'Authorization': 'Token MDo3ODA1OGJkZS02ODVjLTExZTgtYjkzOC1lZjUyYjNkMDRlMzI6bmE5azVHdVlyN1FSaEc4V2hJOU1aUUFpM3pNNTFYR3RsQXRF'
                     }
                 }).then(function (response) {
                     var randomNumber = Math.floor(Math.random() * (response.result.length - 0 + 1)) + 0;
